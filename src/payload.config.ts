@@ -17,6 +17,7 @@ import { plugins } from './plugins'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { getServerSideURL } from './utilities/getURL'
 import { Wines } from './collections/Wines'
+import { Vinyls } from './collections/Vinyls'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -65,7 +66,7 @@ export default buildConfig({
       connectionString: process.env.POSTGRES_URL || '',
     },
   }),
-  collections: [Pages, Posts, Wines, Media, Categories, Users],
+  collections: [Pages, Posts, Wines, Vinyls, Media, Categories, Users],
   localization: {
     locales: [
       {

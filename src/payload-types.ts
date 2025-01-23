@@ -14,6 +14,7 @@ export interface Config {
     pages: Page;
     posts: Post;
     wines: Wine;
+    vinyls: Vinyl;
     media: Media;
     categories: Category;
     users: User;
@@ -31,6 +32,7 @@ export interface Config {
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     wines: WinesSelect<false> | WinesSelect<true>;
+    vinyls: VinylsSelect<false> | VinylsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -700,6 +702,32 @@ export interface Wine {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "vinyls".
+ */
+export interface Vinyl {
+  id: number;
+  name: string;
+  description?: string | null;
+  notes?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -881,6 +909,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'wines';
         value: number | Wine;
+      } | null)
+    | ({
+        relationTo: 'vinyls';
+        value: number | Vinyl;
       } | null)
     | ({
         relationTo: 'media';
@@ -1127,6 +1159,17 @@ export interface PostsSelect<T extends boolean = true> {
  * via the `definition` "wines_select".
  */
 export interface WinesSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  notes?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "vinyls_select".
+ */
+export interface VinylsSelect<T extends boolean = true> {
   name?: T;
   description?: T;
   notes?: T;
